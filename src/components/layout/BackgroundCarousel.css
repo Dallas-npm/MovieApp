@@ -1,0 +1,11 @@
+.slider-section {
+  height: 91vh;
+  position: relative;
+  width: 100%;
+}
+
+.slider-section-slide-main {
+  height: 100%;
+  position: relative;
+  background-size: cover !important;
+}
