@@ -1,0 +1,58 @@
+.search-card {
+  width: 80%;
+  margin: 80px auto;
+}
+
+.search-card-not-found {
+  margin-bottom: 200px;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.search-card-heading {
+  font-size: 1.5rem;
+  color: #950740;
+}
+
+.search-card-line {
+  height: 1px;
+  margin: 30px auto;
+}
+
+.search-card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.search-card-poster {
+  height: 250px;
+  opacity: 0.5;
+  text-decoration: none;
+  position: relative;
+  width: 180px;
+  margin-bottom: 70px;
+  text-align: center;
+}
+
+.search-card-poster:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.search-card-poster-image {
+  height: 240px;
+  object-fit: contain;
+  margin-right: 15px;
+  width: 100%;
+}
+
+.search-card-poster-title {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+}

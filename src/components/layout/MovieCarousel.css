@@ -1,0 +1,40 @@
+.movie-section {
+  height: 95vh;
+  position: relative;
+  background-size: cover !important;
+  width: 100%;
+}
+
+.movie-section-content {
+  position: absolute;
+  height: 200px;
+  bottom: -10%;
+  left: 8%;
+}
+
+.movie-status {
+  font-size: 0.8em;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.movie-title {
+  color: #fff;
+  font-size: 2.7em;
+}
+
+.movie-rating {
+  color: #fff;
+  font-size: 0.9em;
+  margin-top: 15px;
+}
+
+.movie-section-summary {
+  color: #fff;
+  width: 80%;
+  margin: 30px auto;
+}
+
+.movie-section-summary-heading {
+  margin-bottom: 15px;
+}

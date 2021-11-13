@@ -2,7 +2,6 @@ import {
   GET_AIRING_TODAY,
   GET_POPULAR_SHOW,
   GET_TOP_RATED_SHOW,
-  GET_LATEST_SHOW,
   GET_SHOW_RECOMMENDATIONS,
   GET_SIMILAR_SHOWS,
   GET_ON_THE_AIR_SHOWS,
@@ -10,14 +9,15 @@ import {
   GET_SHOW_TRAILERS,
   GET_SHOW_BY_ID,
   GET_SHOW_GENRES,
+  GET_SHOW_TRENDING,
   SET_SHOW_ERROR,
+  CLEAR_SHOW,
 } from "../actions/showTypes";
 
 const initialState = {
   airingToday: null,
   popularShow: null,
   topRatedShow: null,
-  latestShow: null,
   showRecommendations: null,
   similarShows: null,
   onTheAirShows: null,
@@ -25,6 +25,7 @@ const initialState = {
   showTrailers: null,
   showById: null,
   showGenres: null,
+  showTrendings: null,
   showError: "",
 };
 
@@ -45,16 +46,17 @@ const showReducer = (state = initialState, action) => {
         ...state,
         popularShow: action.payload,
       };
+    case GET_SHOW_TRENDING:
+      return {
+        ...state,
+        showTrendings: action.payload,
+      };
     case GET_TOP_RATED_SHOW:
       return {
         ...state,
         topRatedShow: action.payload,
       };
-    case GET_LATEST_SHOW:
-      return {
-        ...state,
-        latestShow: action.payload,
-      };
+
     case GET_SHOW_RECOMMENDATIONS:
       return {
         ...state,
@@ -89,6 +91,15 @@ const showReducer = (state = initialState, action) => {
       return {
         ...state,
         showGenres: action.payload,
+      };
+    case CLEAR_SHOW:
+      return {
+        ...state,
+        showById: null,
+        showActors: null,
+        showTrailers: null,
+        similarShows: null,
+        showRecommendations: null,
       };
     default:
       return state;

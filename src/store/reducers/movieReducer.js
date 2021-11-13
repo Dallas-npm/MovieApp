@@ -6,13 +6,15 @@ import {
   GET_UPCOMING_MOVIES,
   GET_NOW_PLAYING_MOVIES,
   GET_TOP_RATED_MOVIES,
-  GET_MOVIE_RELASE_DATE,
+  GET_MOVIE_TRENDING,
   GET_MOVIE_GENRES,
   GET_MOVIE_BY_ID,
   GET_MOVIE_TRAILER,
   GET_MOVIE_ACTORS,
   GET_TRENDING,
+  SEARCH_MOVIES,
   SET_MOVIE_ERROR,
+  CLEAR_MOVIE,
 } from "../actions/movieTypes";
 
 export const initialState = {
@@ -23,8 +25,9 @@ export const initialState = {
   upcomingMovies: null,
   nowPlayingMovies: null,
   topRatedMovies: null,
-  movieRelaseDate: null,
+  movieTrending: null,
   movieGenres: null,
+  searchMoviesShows: null,
   movieById: null,
   movieTrailer: null,
   movieActors: null,
@@ -38,6 +41,7 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
+        searchMoviesShows: null,
       };
     case GET_MOVIE_RECOMMENDATIONS:
       return {
@@ -81,10 +85,10 @@ const movieReducer = (state = initialState, action) => {
         topRatedMovies: action.payload,
         error: "",
       };
-    case GET_MOVIE_RELASE_DATE:
+    case GET_MOVIE_TRENDING:
       return {
         ...state,
-        movieRelaseDate: action.payload,
+        movieTrending: action.payload,
         error: "",
       };
     case GET_MOVIE_GENRES:
@@ -97,6 +101,12 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         movieById: action.payload,
+        error: "",
+      };
+    case SEARCH_MOVIES:
+      return {
+        ...state,
+        searchMoviesShows: action.payload,
         error: "",
       };
     case GET_MOVIE_TRAILER:
@@ -116,6 +126,14 @@ const movieReducer = (state = initialState, action) => {
         ...state,
         getTrending: action.payload,
         error: "",
+      };
+    case CLEAR_MOVIE:
+      return {
+        ...state,
+        movieById: null,
+        movieActors: null,
+        movieTrailer: null,
+        similarMovies: null,
       };
     default:
       return state;

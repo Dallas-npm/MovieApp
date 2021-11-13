@@ -1,0 +1,23 @@
+.actor-roles {
+  width: 80%;
+  color: #fff;
+  margin: 30px auto;
+  background-color: #111113;
+  padding: 20px;
+}
+
+.actor-roles-header {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.actor-roles-image {
+  margin-right: 40px;
+  height: 200px;
+}
+
+.actor-roles-title {
+  text-decoration: none;
+  color: #fff;
+  font-size: 2rem;
+}

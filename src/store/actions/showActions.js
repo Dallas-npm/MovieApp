@@ -2,7 +2,6 @@ import {
   GET_AIRING_TODAY,
   GET_POPULAR_SHOW,
   GET_TOP_RATED_SHOW,
-  GET_LATEST_SHOW,
   GET_SHOW_RECOMMENDATIONS,
   GET_SIMILAR_SHOWS,
   GET_ON_THE_AIR_SHOWS,
@@ -10,7 +9,9 @@ import {
   GET_SHOW_TRAILERS,
   GET_SHOW_BY_ID,
   GET_SHOW_GENRES,
+  GET_SHOW_TRENDING,
   SET_SHOW_ERROR,
+  CLEAR_SHOW,
 } from "../actions/showTypes";
 
 import { movieDB, apiKey } from "../../api/movieDB";
@@ -54,13 +55,11 @@ export const getPopularShow = () => async (dispatch) => {
   }
 };
 
-export const getTopRatedShow = () => async (dispatch) => {
+export const getShowTrending = () => async (dispatch) => {
   try {
-    const res = await movieDB.get(
-      `tv/top_rated?api_key=${apiKey}&language=en-US&page=1`
-    );
+    const res = await movieDB.get(`trending/tv/week?api_key=${apiKey}`);
     dispatch({
-      type: GET_TOP_RATED_SHOW,
+      type: GET_SHOW_TRENDING,
       payload: res.data,
       error: "",
     });
@@ -69,11 +68,13 @@ export const getTopRatedShow = () => async (dispatch) => {
   }
 };
 
-export const getLatestShow = () => async (dispatch) => {
+export const getTopRatedShow = () => async (dispatch) => {
   try {
-    const res = await movieDB.get(`tv/latest?api_key=${apiKey}&language=en-US`);
+    const res = await movieDB.get(
+      `tv/top_rated?api_key=${apiKey}&language=en-US&page=1`
+    );
     dispatch({
-      type: GET_LATEST_SHOW,
+      type: GET_TOP_RATED_SHOW,
       payload: res.data,
       error: "",
     });
@@ -185,7 +186,29 @@ export const getShowGenres = () => async (dispatch) => {
   }
 };
 
+export const clearShow = () => {
+  return {
+    type: CLEAR_SHOW,
+  };
+};
+
 export const getShowsForHomePage = () => async (dispatch) => {
   dispatch(getTopRatedShow());
   dispatch(getPopularShow());
+};
+
+export const getShow = (id) => async (dispatch) => {
+  dispatch(getSimilarShows(id));
+  dispatch(getShowActors(id));
+  dispatch(getShowTrailers(id));
+  dispatch(getShowRecommendations(id));
+  dispatch(getShowById(id));
+};
+
+export const getShowsContent = () => async (dispatch) => {
+  dispatch(getPopularShow());
+  dispatch(getAiringToday());
+  dispatch(getTopRatedShow());
+  dispatch(getOnTheAirShows());
+  dispatch(getShowTrending());
 };

@@ -1,11 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
 .slider-section {
-  height: 91vh;
+  height: 95vh;
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 .slider-section-slide-main {
   height: 100%;
   position: relative;
   background-size: cover !important;
+}
+
+.slider-section-slide-main-content {
+  position: absolute;
+  height: 200px;
+  bottom: 8%;
+  left: 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-section-slide-main-content img {
+  object-fit: contain;
+  height: 180px;
+  width: 150px;
+}
+
+.slider-section-slide-main-content-item-desc {
+  font-size: 0.8em;
+  margin-bottom: 15px;
+  color: #fff;
+}
+.slider-section-slide-main-content-item-info {
+  font-size: 0.8em;
+  margin-top: 15px;
+  color: #fff;
+}
+
+.slider-section-slide-main-content-item-heading {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.7em;
+}
+
+.slider-section-btn-right {
+  position: absolute;
+  top: 50%;
+  right: 32px;
+  font-size: 3rem;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+}
+.slider-section-btn-left {
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  font-size: 3rem;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+}
+.slider-section-btn-left:hover,
+.slider-section-btn-right:hover {
+  color: #f43;
+}
+
+.item-active {
+  height: 100%;
+  opacity: 1;
+  transition-duration: 1s;
+  transform: scale(1.08);
+}
+.item {
+  opacity: 0;
+  transition-duration: 1s ease;
+}
+
+/* css for Actor component */
+
+.actor-bio {
+  width: 80%;
+  color: #fff;
+  margin: 30px auto;
+}
+
+.actor-bio-heading {
+  color: #950740;
+  margin: 20px auto;
 }

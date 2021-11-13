@@ -6,13 +6,15 @@ import {
   GET_UPCOMING_MOVIES,
   GET_NOW_PLAYING_MOVIES,
   GET_TOP_RATED_MOVIES,
-  GET_MOVIE_RELASE_DATE,
+  GET_MOVIE_TRENDING,
   GET_MOVIE_GENRES,
   GET_MOVIE_BY_ID,
   GET_MOVIE_TRAILER,
   GET_MOVIE_ACTORS,
   GET_TRENDING,
+  SEARCH_MOVIES,
   SET_MOVIE_ERROR,
+  CLEAR_MOVIE,
 } from "./movieTypes";
 
 import { movieDB, apiKey } from "../../api/movieDB";
@@ -37,6 +39,12 @@ export const getMovieRecommendations = (id) => async (dispatch) => {
   } catch (error) {
     dispatch(setMovieError(error.response.data));
   }
+};
+
+export const clearMovie = () => {
+  return {
+    type: CLEAR_MOVIE,
+  };
 };
 
 export const getSimilarMovies = (id) => async (dispatch) => {
@@ -123,13 +131,11 @@ export const getTopRated = () => async (dispatch) => {
   }
 };
 
-export const getMovieRelaseDate = (id) => async (dispatch) => {
+export const getMovieTrending = () => async (dispatch) => {
   try {
-    const res = await movieDB.get(
-      `movie/${id}/release_dates?api_key=${apiKey}`
-    );
+    const res = await movieDB.get(`/trending/movie/week?api_key=${apiKey}`);
     dispatch({
-      type: GET_MOVIE_RELASE_DATE,
+      type: GET_MOVIE_TRENDING,
       payload: res.data,
     });
   } catch (error) {
@@ -158,6 +164,21 @@ export const getMovieById = (id) => async (dispatch) => {
     );
     dispatch({
       type: GET_MOVIE_BY_ID,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch(setMovieError(error.response.data));
+  }
+};
+
+export const searchMoviesShows = (name) => async (dispatch) => {
+  try {
+    const res = await movieDB.get(
+      `/search/multi?api_key=${apiKey}&language=en-US&query=${name}&page=1&include_adult=false`
+    );
+
+    dispatch({
+      type: SEARCH_MOVIES,
       payload: res.data,
     });
   } catch (error) {
@@ -209,4 +230,20 @@ export const getMoviesForHomePage = () => async (dispatch) => {
   dispatch(getTrending());
   dispatch(getPopularMovies());
   dispatch(getTopRated());
+};
+
+export const getMovieContent = (id) => async (dispatch) => {
+  dispatch(getMovieRecommendations(id));
+  dispatch(getMovieActors(id));
+  dispatch(getMovieTrailer(id));
+  dispatch(getSimilarMovies(id));
+  dispatch(getMovieById(id));
+};
+
+export const getMoviesContent = () => async (dispatch) => {
+  dispatch(getMovieTrending());
+  dispatch(getTopRated());
+  dispatch(getUpcomingMovies());
+  dispatch(getPopularMovies());
+  dispatch(getNowPlayingMovies());
 };
