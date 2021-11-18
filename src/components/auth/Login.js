@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { movieDB, apiKey } from "../../api/movieDB";
 
-import { getUser } from "../../store/actions/authActions";
+import { getUser, setAuthError } from "../../store/actions/authActions";
 
 import "./Login.css";
 
@@ -22,7 +22,7 @@ const Login = () => {
       );
       const request_token = token?.data.request_token;
 
-      const validate = await movieDB.post(
+      await movieDB.post(
         `/authentication/token/validate_with_login?api_key=${apiKey}`,
         {
           username,
@@ -45,13 +45,14 @@ const Login = () => {
       const id = await session?.data.session_id;
       localStorage.setItem("token", id);
       dispatch(getUser(id));
-
+      dispatch(setAuthError(""));
       history.push("/");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
+      dispatch(setAuthError(error.message));
     }
   };
-
+  const errorMsg = useSelector((state) => state.token.error);
   const handleInput = (e) => {
     const name = e.currentTarget.name;
     const value = e.currentTarget.value;
@@ -61,38 +62,44 @@ const Login = () => {
   };
 
   return (
-    <div className='login'>
-      <h1 className='login-header'>Please Log In</h1>
-      <form onSubmit={handleSubmit} className='login-form'>
-        <label>
-          <p>Username</p>
-          <input
-            type='name'
-            name='username'
-            value={username}
-            onChange={handleInput}
-            className='login-input'
-            required
-          />
-        </label>
-        <label>
-          <p>Password</p>
-          <input
-            type='password'
-            name='password'
-            value={password}
-            onChange={handleInput}
-            className='login-input'
-            required
-          />
-        </label>
-        <div>
-          <button type='submit' className='login-submit'>
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+    <>
+      <div className='login'>
+        <h1 className='login-header'>Please Log In</h1>
+        {errorMsg && (
+          <span>Username or Password are incorrect! Please try again</span>
+        )}
+
+        <form onSubmit={handleSubmit} className='login-form'>
+          <label>
+            <p>Username</p>
+            <input
+              type='name'
+              name='username'
+              value={username}
+              onChange={handleInput}
+              className='login-input'
+              required
+            />
+          </label>
+          <label>
+            <p>Password</p>
+            <input
+              type='password'
+              name='password'
+              value={password}
+              onChange={handleInput}
+              className='login-input'
+              required
+            />
+          </label>
+          <div>
+            <button type='submit' className='login-submit'>
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

@@ -31,7 +31,7 @@ const Movie = () => {
 
   const handleRating = async () => {
     try {
-      const rate = await movieDB.post(
+      await movieDB.post(
         `/movie/${id}/rating?api_key=${apiKey}&session_id=${token}`,
         {
           value,

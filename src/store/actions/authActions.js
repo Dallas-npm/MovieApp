@@ -1,7 +1,6 @@
 import { movieDB, apiKey } from "../../api/movieDB";
 
-export const setAuthError = () => {
-  const error = "Error";
+export const setAuthError = (error) => {
   return {
     type: "SET_AUTH_ERROR",
     payload: error,

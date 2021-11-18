@@ -13,10 +13,6 @@ const NavBar = () => {
     setActive(!active);
   };
 
-  const handleClickOutside = () => {
-    setActive(false);
-  };
-
   const dispatch = useDispatch();
   useEffect(() => {
     const id = localStorage.getItem("token");
