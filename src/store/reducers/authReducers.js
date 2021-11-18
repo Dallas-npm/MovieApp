@@ -1,7 +1,8 @@
 export const initialState = {
   user: null,
   error: "",
-  rate: null,
+  ratedMovie: null,
+  ratedShow: null,
 };
 
 const tokenReducer = (state = initialState, action) => {
@@ -17,11 +18,16 @@ const tokenReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
-
-    case "RATE":
+    case "GET_RATED_MOVIE":
       return {
         ...state,
-        rate: action.payload,
+        ratedMovie: action.payload,
+      };
+
+    case "GET_RATED_SHOW":
+      return {
+        ...state,
+        ratedShow: action.payload,
       };
 
     case "CLEAR_USER":

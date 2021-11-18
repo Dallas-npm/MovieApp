@@ -14,7 +14,7 @@ const SearchCard = ({
   return (
     <>
       <Link
-        to={`/${mediaType === "person" ? "actor" : mediaType}/${id}`}
+        to={mediaType === "movie" ? `/movie/${id}` : `/show/${id}`}
         className='search-card-poster'
       >
         <img

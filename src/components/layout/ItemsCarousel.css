@@ -76,3 +76,13 @@ img {
 
   background: conic-gradient(#950740, #fff, #950740);
 }
+
+@media screen and (max-width: 768px) {
+  .btn-left {
+    left: -1%;
+  }
+
+  .btn-right {
+    right: -1%;
+  }
+}

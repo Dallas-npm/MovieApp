@@ -1,7 +1,9 @@
 .footer {
   background: #222227;
   color: #950740;
-  padding: 30px;
+  padding: 37px;
+  position: absolute;
+  width: 100%;
   margin-top: 50px;
 }
 

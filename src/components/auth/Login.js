@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { movieDB, apiKey } from "../../api/movieDB";
 
-import {
-  getToken,
-  getUser,
-  getSessionId,
-  getSession,
-} from "../../store/actions/authActions";
+import { getUser } from "../../store/actions/authActions";
 
 import "./Login.css";
 
@@ -18,8 +13,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const user = useSelector((state) => state.token.user);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,7 +20,6 @@ const Login = () => {
       const token = await movieDB.get(
         `authentication/token/new?api_key=${apiKey} `
       );
-      console.log(token);
       const request_token = token?.data.request_token;
 
       const validate = await movieDB.post(
@@ -49,7 +41,7 @@ const Login = () => {
           request_token,
         }
       );
-      console.log(session);
+
       const id = await session?.data.session_id;
       localStorage.setItem("token", id);
       dispatch(getUser(id));
@@ -80,6 +72,7 @@ const Login = () => {
             value={username}
             onChange={handleInput}
             className='login-input'
+            required
           />
         </label>
         <label>
@@ -90,6 +83,7 @@ const Login = () => {
             value={password}
             onChange={handleInput}
             className='login-input'
+            required
           />
         </label>
         <div>

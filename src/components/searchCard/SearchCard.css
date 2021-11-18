@@ -1,5 +1,6 @@
 .search-card {
   width: 80%;
+  display: flex;
   margin: 80px auto;
 }
 
@@ -10,6 +11,7 @@
 }
 
 .search-card-heading {
+  position: absolute;
   font-size: 1.5rem;
   color: #950740;
 }
@@ -35,8 +37,10 @@
   text-decoration: none;
   position: relative;
   width: 180px;
-  margin-bottom: 70px;
+  margin-bottom: 50px;
   text-align: center;
+  margin-right: 10px;
+  margin-top: 20px;
 }
 
 .search-card-poster:hover {
@@ -55,4 +59,16 @@
   display: block;
   text-decoration: none;
   color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .search-card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .search-card-heading {
+    position: relative;
+  }
 }

@@ -101,3 +101,20 @@
   color: #950740;
   margin: 20px auto;
 }
+
+@media screen and (max-width: 768px) {
+  .slider-section {
+    height: 50vh;
+    margin-top: 56px;
+  }
+
+  .slider-section-slide-main-content-item-info {
+    font-size: 0.5em;
+  }
+  .slider-section-slide-main-content-item-heading {
+    font-size: 1.2em;
+  }
+  .slider-section-slide-main-content-item-desc {
+    font-size: 0.5em;
+  }
+}

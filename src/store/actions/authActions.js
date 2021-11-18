@@ -22,19 +22,28 @@ export const getUser = (id) => async (dispatch) => {
   }
 };
 
-export const rateMovie = (id, token, value) => async (dispatch) => {
+export const getRatedMovie = (token, acc_id) => async (dispatch) => {
   try {
-    const rate = await movieDB.post(
-      `
-    /movie/${id}/rating?api_key=${apiKey}&session_id=${token}`,
-      {
-        value,
-      }
+    const rated = await movieDB.get(
+      `account/${acc_id}/rated/movies?api_key=${apiKey}&language=en-US&session_id=${token}&sort_by=created_at.asc&page=1`
     );
-
     dispatch({
-      type: "RATE",
-      payload: rate.data,
+      type: "GET_RATED_MOVIE",
+      payload: rated.data,
+    });
+  } catch (error) {
+    dispatch(setAuthError(error.response.data));
+  }
+};
+
+export const getRatedShow = (token, acc_id) => async (dispatch) => {
+  try {
+    const rated = await movieDB.get(
+      `account/${acc_id}/rated/tv?api_key=${apiKey}&language=en-US&session_id=${token}&sort_by=created_at.asc&page=1`
+    );
+    dispatch({
+      type: "GET_RATED_SHOW",
+      payload: rated.data,
     });
   } catch (error) {
     dispatch(setAuthError(error.response.data));

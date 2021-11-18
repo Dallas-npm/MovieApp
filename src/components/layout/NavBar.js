@@ -1,21 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { clearUser, getUser } from "../../store/actions/authActions";
 import "./NavBar.css";
 import Search from "../search/Search";
 import logo from "../../assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 const NavBar = () => {
+  const ref = useRef(null);
+  const [active, setActive] = useState(false);
+  const onBurgerClick = () => {
+    setActive(!active);
+  };
+
+  const handleClickOutside = () => {
+    setActive(false);
+  };
+
   const dispatch = useDispatch();
-  const history = useHistory();
   useEffect(() => {
     const id = localStorage.getItem("token");
     if (id) {
       dispatch(getUser(id));
     }
-  }, [dispatch]);
+
+    const checkIfClickedOutside = (e) => {
+      if (active && ref.current && !ref.current.contains(e.target)) {
+        setActive(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [active, dispatch]);
   const user = useSelector((state) => state.token.user);
 
   const handleLogout = () => {
@@ -23,9 +43,8 @@ const NavBar = () => {
     dispatch(clearUser());
   };
 
-  console.log(user);
   return (
-    <nav className='nav-main'>
+    <nav className='nav-main' ref={ref}>
       <div className='nav-main-left-section'>
         <Link to='/' className='nav-main-logo'>
           <img src={logo} alt='' className='nav-main-logo-img' />
@@ -41,7 +60,12 @@ const NavBar = () => {
         )}
       </div>
 
-      <ul className='nav-main-links'>
+      <ul className={`nav-main-links ${active ? "active" : ""}`}>
+        <li>
+          <Link to='/rated' className='nav-main-link'>
+            RATED
+          </Link>
+        </li>
         <li>
           <Link to='/movies' className='nav-main-link'>
             MOVIES
@@ -67,6 +91,29 @@ const NavBar = () => {
           </li>
         )}
       </ul>
+      <div
+        className='main-nav-burger'
+        role='button'
+        onClick={onBurgerClick}
+        onKeyDown={onBurgerClick}
+        tabIndex={0}
+      >
+        <div
+          className={`main-nav-burger-line1 ${
+            active ? "main-nav-burger-toggle-line1" : ""
+          }`}
+        />
+        <div
+          className={`main-nav-burger-line2 ${
+            active ? "main-nav-burger-toggle-line2" : ""
+          }`}
+        />
+        <div
+          className={`main-nav-burger-line3 ${
+            active ? "main-nav-burger-toggle-line3" : ""
+          }`}
+        />
+      </div>
     </nav>
   );
 };
